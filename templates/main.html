@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% block title %}Главная страница{% endblock %}
+{% block main %}
+    <div>
+        <div class="container clearfix">
+            <div class="row justify-content-around">
+                <div class="col-main col-main-page col-12">
+                    <h3 align="center">ЗАДАЧА ОБ УЗЛАХ И ФАБРИКАХ</h3>
+                    <hr>
+                    <p>
+                        Четыре растворных узла строительного управления потребляют в сутки
+                        <strong>{{ constants.CONSUMPTION.0 }}</strong>, <strong>{{ constants.CONSUMPTION.1 }}</strong>,
+                        <strong>{{ constants.CONSUMPTION.2 }}</strong> и <strong>{{ constants.CONSUMPTION.3 }}</strong>
+                        тонн песка, который производят 3 фабрики. Суточная производительность их равна, соответственно,
+                        <strong>{{ constants.PRODUCTIVITY.0 }}</strong>, <strong>{{ constants.PRODUCTIVITY.1 }}</strong>
+                        и <strong>{{ constants.PRODUCTIVITY.2 }}</strong> тонн.
+                    </p>
+                    <p>
+                        Фабрики взымают плату за погрузку песка каждые сутки не с количества отгруженного материала, а
+                        "с факта" его отгрузки за это время данному потребителю, что делается для закрепления его за
+                        фабрикой. Количественные данные приведены в следующей таблице:
+                    </p>
+                    <table class="table table-hover" width="100%">
+                        <tr>
+                            <th rowspan="2">Показатели</th>
+                            <th colspan="3" scope="colgroup">Номер фабрики</th>
+                        </tr>
+                        <tr>
+                            <th scope="colgroup">1</th>
+                            <th scope="colgroup">2</th>
+                            <th scope="colgroup">3</th>
+                        </tr>
+                        <tr>
+                            <th scope="row" width="50%">Стоимость перевозки 1 т песка от фабрики, руб.:</th>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" width="50%">- к 1-ому узлу</th>
+                            <td>{{ constants.FIRST_NODE.0 }}</td>
+                            <td>{{ constants.FIRST_NODE.1 }}</td>
+                            <td>{{ constants.FIRST_NODE.2 }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row" width="50%">- к 2-ому узлу</th>
+                            <td>{{ constants.SECOND_NODE.0 }}</td>
+                            <td>{{ constants.SECOND_NODE.1 }}</td>
+                            <td>{{ constants.SECOND_NODE.2 }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row" width="50%">- к 3-ему узлу</th>
+                            <td>{{ constants.THIRD_NODE.0 }}</td>
+                            <td>{{ constants.THIRD_NODE.1 }}</td>
+                            <td>{{ constants.THIRD_NODE.2 }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row" width="50%">- к 4-ому узлу</th>
+                            <td>{{ constants.FOURTH_NODE.0 }}</td>
+                            <td>{{ constants.FOURTH_NODE.1 }}</td>
+                            <td>{{ constants.FOURTH_NODE.2 }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row" width="50%">Цена 1 т песка, руб.</th>
+                            <td>{{ constants.COST_OF_ONE_TON.0 }}</td>
+                            <td>{{ constants.COST_OF_ONE_TON.1 }}</td>
+                            <td>{{ constants.COST_OF_ONE_TON.2 }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row" width="50%">Суточная стоимость погрузки, руб.</th>
+                            <td>{{ constants.DAILY_COST_OF_GOODS_LOADING.0 }}</td>
+                            <td>{{ constants.DAILY_COST_OF_GOODS_LOADING.1 }}</td>
+                            <td>{{ constants.DAILY_COST_OF_GOODS_LOADING.2 }}</td>
+                        </tr>
+                    </table>
+                    <div class="col-12" align="center">
+                        <hr>
+                        <a class="btn btn-outline-secondary btn-lg col-4" href="/solve/">
+                            <i class="fa fa-magic" aria-hidden="true"></i>
+                        </a>
+                        <a class="btn btn-outline-secondary btn-lg col-4" href="/prepare/">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
