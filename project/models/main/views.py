@@ -1,8 +1,8 @@
 from django.shortcuts import render
 
-from project.core.utilities.constants import Constants
+from project.core.data.initial import InitialData
 
 
 def main_page_view(request):
-    constants = Constants()
+    initial = InitialData()
     return render(request, 'main.html', locals())
