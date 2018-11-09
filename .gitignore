@@ -114,3 +114,6 @@ scripts/
 *.iml
 out
 gen
+
+# macOS specific
+.DS_Store

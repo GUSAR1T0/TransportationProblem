@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <title>Транспортная задача - {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+          integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0-alpha1/katex.min.css"
+          integrity="sha384-8QOKbPtTFvh/lMY0qPVbXj9hDh+v8US0pD//FcoYFst2lCIf0BmT58+Heqj0IGyx" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<div class="entry-content">
+    <nav id="navbar-menu" class="navbar navbar-inverse fixed-top">
+        <div class="container">
+            <div class="row col-lg-6 col-md-6 col-sm-6">
+                <h1 class="title">
+                    <a href="/">
+                        ТРАНСПОРТНАЯ ЗАДАЧА
+                    </a>
+                </h1>
+            </div>
+            <div class="row col-6">
+                {% block menu %}{% endblock %}
+            </div>
+        </div>
+    </nav>
+    <div class="container clearfix">
+        <div class="row">
+            <div class="breadcrumb col-12">
+                <h1 align="center">
+                    <a href="/"><i class="fa fa-home"></i></a>
+                    {% block breadcrumb %}{% endblock %}
+                </h1>
+            </div>
+        </div>
+    </div>
+    <main>
+        {% block main %}{% endblock %}
+    </main>
+    <footer class="footer vert-center">
+        <div class="container">
+            <div class="row">
+                <div class="copyright col-lg-12 col-md-12 col-sm-12 col-12 vert-center" align="center">
+                    <h6>
+                        © Разработано <a href="mailto:xromash@vxdesign.store">Романом Машенькиным</a>,
+                        {% now "Y" as current_year %}
+                        {% ifequal current_year '2017' %}
+                            2017
+                        {% else %}
+                            2017 - {{ current_year }}
+                        {% endifequal %}
+                    </h6>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+        integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+        integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0-alpha1/katex.min.js"
+        integrity="sha384-GR8SEkOO1rBN/jnOcQDFcFmwXAevSLx7/Io9Ps1rkxWp983ZIuUGfxivlF/5f5eJ"
+        crossorigin="anonymous"></script>
+<script src="{% static 'js/jscripts.js' %}"></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

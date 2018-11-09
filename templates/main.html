@@ -1,0 +1,249 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Главная страница{% endblock %}
+{% block menu %}
+    <div class="col-2">
+        <button class="btn btn-outline-dark btn-block add-node-btn enabled">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            <i class="fa fa-map-pin" aria-hidden="true"></i>
+        </button>
+    </div>
+    <div class="col-2">
+        <button class="btn btn-outline-dark btn-block remove-node-btn enabled" data-dismiss="modal"
+                data-toggle="modal" data-target=".remove-node-modal">
+            <i class="fa fa-times" aria-hidden="true"></i>
+            <i class="fa fa-map-pin" aria-hidden="true"></i>
+        </button>
+    </div>
+    <div class="col-2">
+        <button class="btn btn-outline-dark btn-block add-factory-btn enabled">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            <i class="fa fa-industry" aria-hidden="true"></i>
+        </button>
+    </div>
+    <div class="col-2">
+        <button class="btn btn-outline-dark btn-block remove-factory-btn enabled" data-dismiss="modal"
+                data-toggle="modal" data-target=".remove-factory-modal">
+            <i class="fa fa-times" aria-hidden="true"></i>
+            <i class="fa fa-industry" aria-hidden="true"></i>
+        </button>
+    </div>
+    <div class="col-4">
+        <button class="btn btn-outline-dark btn-block settings-btn enabled" data-dismiss="modal"
+                data-toggle="modal" data-target=".settings-modal">
+            <i class="fa fa-cogs" aria-hidden="true"></i>
+        </button>
+    </div>
+    <div class="remove-node-modal modal fade" tabindex="-1" role="dialog" aria-labelledby="modal-label">
+        <div class="modal-dialog modal vert-center" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-label">НАСТРОЙКИ УЗЛОВ</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="node-select">Выбрать узлы для удаления</label>
+                        <select multiple class="form-control node-select-form" id="node-select">
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-lg btn-block apply-remove-node-btn">
+                        <i class="fa fa-save"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="remove-factory-modal modal fade" tabindex="-1" role="dialog" aria-labelledby="modal-label">
+        <div class="modal-dialog modal vert-center" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-label">НАСТРОЙКИ ФАБРИК</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="factory-select">Выбрать фабрики для удаления</label>
+                        <select multiple class="form-control factory-select-form" id="factory-select">
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-lg btn-block apply-remove-factory-btn">
+                        <i class="fa fa-save"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="settings-modal modal fade" tabindex="-1" role="dialog" aria-labelledby="modal-label">
+        <div class="modal-dialog modal vert-center" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-label">ПАРАМЕТРЫ ЗАДАЧИ</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-check">
+                        <label class="form-check-label active">
+                            <input class="form-check-input cost-one-ton-checkbox"
+                                   type="checkbox" checked="checked" value="">Учитывать цену 1 тонны песка
+                        </label>
+                        <label class="form-check-label active">
+                            <input class="form-check-input daily-cost-loading-checkbox"
+                                   type="checkbox" checked="checked" value="">Учитывать суточную стоимость погрузки
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-lg btn-block apply-settings-btn">
+                        <i class="fa fa-save"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block main %}
+    <div>
+        <div class="container clearfix">
+            <div class="row justify-content-around">
+                <div class="col-main col-main-page col-12">
+                    <h3 align="center">ЗАДАЧА ОБ УЗЛАХ И ФАБРИКАХ</h3>
+                    <hr>
+                    <p>
+                        Несколько растворных узлов строительного управления потребляют в сутки тонн песка, который
+                        производят несколько фабрик:
+                    </p>
+                    <table class="table table-hover consumption-table" width="100%">
+                        <tr>
+                            <th colspan="{{ initial.CONSUMPTION|length }}" scope="colgroup"
+                                class="consumption-header text-centered">Узлы</th>
+                        </tr>
+                        <tr class="consumption-headers">
+                            {% for consumption in initial.CONSUMPTION %}
+                                <th scope="colgroup" class="consumption-each-header text-centered"
+                                    width="{% widthratio 100 initial.CONSUMPTION|length 1 %}%">{{ forloop.counter }}</th>
+                            {% endfor %}
+                        </tr>
+                        <tr class="consumption-values">
+                            {% for consumption in initial.CONSUMPTION %}
+                                <td class="consumption editable text-centered"
+                                    width="{% widthratio 100 initial.CONSUMPTION|length 1 %}%" contenteditable>{{ consumption }}</td>
+                            {% endfor %}
+                        </tr>
+                    </table>
+                    <p>
+                        Суточная производительность их равна (тонн):
+                    </p>
+                    <table class="table table-hover productivity-table" width="100%">
+                        <tr>
+                            <th colspan="{{ initial.PRODUCTIVITY|length }}" scope="colgroup"
+                                class="productivity-header text-centered">Фабрики</th>
+                        </tr>
+                        <tr class="productivity-headers">
+                            {% for productivity in initial.PRODUCTIVITY %}
+                                <th scope="colgroup" class="productivity-each-header text-centered"
+                                width="{% widthratio 100 initial.PRODUCTIVITY|length 1 %}%">{{ forloop.counter }}</th>
+                            {% endfor %}
+                        </tr>
+                        <tr class="productivity-values">
+                            {% for productivity in initial.PRODUCTIVITY %}
+                                <td class="productivity editable text-centered"
+                                    width="{% widthratio 100 initial.PRODUCTIVITY|length 1 %}%" contenteditable>{{ productivity }}</td>
+                            {% endfor %}
+                        </tr>
+                    </table>
+                    <p>
+                        Фабрики взымают плату за погрузку песка каждые сутки не с количества отгруженного материала,
+                        а "с факта" его отгрузки за это время данному потребителю, что делается для закрепления его
+                        за фабрикой. Количественные данные приведены в следующей таблице:
+                    </p>
+                    <table class="table table-hover data-table" width="100%">
+                        <tr>
+                            <th rowspan="2">Показатели</th>
+                            <th colspan="{{ initial.PRODUCTIVITY|length }}" scope="colgroup"
+                                class="factory-header text-centered">Номер фабрики</th>
+                        </tr>
+                        <tr class="factory-headers">
+                            {% for productivity in initial.PRODUCTIVITY %}
+                                <th scope="colgroup" class="factory-each-header text-centered"
+                                width="{% widthratio 72 initial.PRODUCTIVITY|length 1 %}%">{{ forloop.counter }}</th>
+                            {% endfor %}
+                        </tr>
+                        <tr class="empty-lines">
+                            <th scope="row" width="28%">Стоимость перевозки 1 т песка от фабрики, руб.:</th>
+                            {% for productivity in initial.PRODUCTIVITY %}
+                                <td class="empty-line" width="{% widthratio 72 initial.PRODUCTIVITY|length 1 %}%"></td>
+                            {% endfor %}
+                        </tr>
+                        {% for key, value in initial.NODES.items %}
+                            <tr class="node-values">
+                                <th scope="row" width="28%">- к узлу "{{ key }}"</th>
+                                {% for node in value %}
+                                    <td class="node editable text-centered"
+                                        width="{% widthratio 72 initial.PRODUCTIVITY|length 1 %}%" contenteditable>{{ node }}</td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                        <tr class="cost-one-ton-values">
+                            <th scope="row" width="28%">Цена 1 т песка, руб.</th>
+                            {% for cost_one_ton in initial.COST_OF_ONE_TON %}
+                                <td class="cost-one-ton editable text-centered"
+                                    width="{% widthratio 72 initial.PRODUCTIVITY|length 1 %}%" contenteditable>{{ cost_one_ton }}</td>
+                            {% endfor %}
+                        </tr>
+                        <tr class="daily-cost-loading-values">
+                            <th scope="row" width="28%">Суточная стоимость погрузки, руб.</th>
+                            {% for daily_cost_loading in initial.DAILY_COST_OF_GOODS_LOADING %}
+                                <td class="daily-cost-loading editable text-centered"
+                                    width="{% widthratio 72 initial.PRODUCTIVITY|length 1 %}%" contenteditable>{{ daily_cost_loading }}</td>
+                            {% endfor %}
+                        </tr>
+                    </table>
+                    <hr>
+                    <div class="info" align="center"></div>
+                    <a class="btn btn-outline-secondary btn-lg btn-block solve-btn">
+                        <i class="fa fa-magic" aria-hidden="true"></i>
+                    </a>
+                    <hr>
+                    <div class="results collapse text-centered" data-toggle="collapse"
+                         id="collapse-results" onClick="event.stopPropagation();">
+                        <h4>ПОСТАНОВКА ЗАДАЧИ</h4>
+                        <hr>
+                        <span id="ps"></span>
+                        <hr>
+                        <h4>НАЧАЛЬНЫЙ ОПОРНЫЙ ПЛАН</h4>
+                        <hr>
+                        <span id="basic_diff"></span>
+                        <div id="mem"></div>
+                        <hr>
+                        <h4>ПОЛУЧЕНИЕ ОПТИМАЛЬНОГО ПЛАНА</h4>
+                        <hr>
+                        <span id="non_degenerated_values"></span>
+                        <div id="non_degenerated_status"></div>
+                        <div id="pm"></div>
+                        <hr>
+                        <h4>РЕЗУЛЬТАТ</h4>
+                        <hr>
+                        <div id="final"></div>
+                        <span id="ofv"></span>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block scripts %}
+    <script src="{% static 'js/tables.js' %}"></script>
+    <script src="{% static 'js/handler.js' %}"></script>
+{% endblock %}
